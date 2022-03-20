@@ -4,9 +4,15 @@ package com.dogs.greendog.playdog.controller;
 import com.dogs.greendog.playdog.domain.Cliente;
 import com.dogs.greendog.playdog.domain.Item;
 import com.dogs.greendog.playdog.domain.Pedido;
+import com.dogs.greendog.playdog.dto.PedidoDTO;
 import com.dogs.greendog.playdog.repository.ClienteRepository;
 import com.dogs.greendog.playdog.repository.ItemRepository;
 import com.dogs.greendog.playdog.repository.PedidoRepository;
+import com.dogs.greendog.playdog.service.AtualizaEstoque;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,113 +24,131 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-	public static final String NAO_VEIO_NADA_AQUI = "Não veio nada aqui";
-	private final PedidoRepository pedidoRepository;
-	private final ItemRepository itemRepository;
-	private final ClienteRepository clienteRepository;
-	private static final String ITEM_URI = "pedidos/";
+    @Autowired
+    ModelMapper modelMapper;
 
-	public PedidoController(PedidoRepository pedidoRepository,ItemRepository itemRepository,ClienteRepository clienteRepository) {
-		this.pedidoRepository = pedidoRepository;
-		this.itemRepository = itemRepository;
-		this.clienteRepository = clienteRepository;
-	}
+    public static final String POSSIVEL_PEDIDO_NULO = "Possivel pedido nulo";
+    private final AtualizaEstoque atualizaEstoque;
+    private final PedidoRepository pedidoRepository;
+    private final ItemRepository itemRepository;
+    private final ClienteRepository clienteRepository;
+    private static final String ITEM_URI = "pedidos/";
 
-	@GetMapping("/")
-	public ModelAndView list() {
-		Iterable<Pedido> pedidos = this.pedidoRepository.findAll();
-		return new ModelAndView(ITEM_URI + "list","pedidos",pedidos);
-	}
+    public PedidoController(PedidoRepository pedidoRepository, ItemRepository itemRepository, ClienteRepository clienteRepository, AtualizaEstoque atualizaEstoque) {
+        this.pedidoRepository = pedidoRepository;
+        this.itemRepository = itemRepository;
+        this.clienteRepository = clienteRepository;
+        this.atualizaEstoque = atualizaEstoque;
+    }
 
-	@GetMapping("{id}")
-	public ModelAndView view(@PathVariable("id") Pedido pedido) {
-		return new ModelAndView(ITEM_URI + "view","pedido",pedido);
-	}
+    @GetMapping("/")
+    public ModelAndView list() {
+        Iterable<Pedido> pedidos = this.pedidoRepository.findAll();
+        log.info(">>>Geting orders: {}", pedidos);
+        return new ModelAndView(ITEM_URI + "list", "pedidos", pedidos);
+    }
 
-	@GetMapping("/novo")
-	public ModelAndView createForm(@ModelAttribute Pedido pedido) {
+    @GetMapping("{id}")
+    public ModelAndView view(@PathVariable("id") Pedido pedido) {
+        return new ModelAndView(ITEM_URI + "view", "pedido", pedido);
+    }
 
-		Map<String,Object> model = new HashMap<>();
-		model.put("todosItens",itemRepository.findAll());
-		model.put("todosClientes",clienteRepository.findAll());
-		return new ModelAndView(ITEM_URI + "form",model);
-		 
-	}
+    @GetMapping("/novo")
+    public ModelAndView createForm(@ModelAttribute PedidoDTO pedidoDTO) {
 
-	@PostMapping(params = "form")
-	public ModelAndView create(@Valid Pedido pedido,BindingResult result,RedirectAttributes redirect) {
-		if (result.hasErrors()) { return new ModelAndView(ITEM_URI + "form","formErrors",result.getAllErrors()); }
+        Map<String, Object> model = new HashMap<>();
+        model.put("todosItens", itemRepository.findAll());
+        model.put("todosClientes", clienteRepository.findAll());
+        log.info(">>>Order new: {}", model);
+        return new ModelAndView(ITEM_URI + "form", model);
 
-		if (pedido.getId() != null) {
-			
-			Optional<Pedido> pedidoParaAlterarOpt = pedidoRepository.findById(pedido.getId());
-			Pedido pedidoParaAlterar = pedidoParaAlterarOpt.orElseThrow(() -> new RuntimeException(NAO_VEIO_NADA_AQUI));
-			
-			Optional<Cliente> clienteOpt = clienteRepository.findById(pedidoParaAlterar.getCliente().getId());
-			Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException(NAO_VEIO_NADA_AQUI));
-						
-			pedidoParaAlterar.setItens(pedido.getItens());
-			double valorTotal = 0;
-			for (Item i : pedido.getItens()) {
-				valorTotal +=i.getPreco();
-			}
-			pedidoParaAlterar.setData(pedido.getData());
-			pedidoParaAlterar.setValorTotal(valorTotal);			
-			c.getPedidos().remove(pedidoParaAlterar);
-			c.getPedidos().add(pedidoParaAlterar);
-			this.clienteRepository.save(c);
-		} else {
-			Optional<Cliente> clienteOpt = clienteRepository.findById(pedido.getCliente().getId());
-			Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException(NAO_VEIO_NADA_AQUI));
-			
-			double valorTotal = 0;
-			for (Item i : pedido.getItens()) {
-				valorTotal +=i.getPreco();
-			}
-			pedido.setValorTotal(valorTotal);
-			pedido = this.pedidoRepository.save(pedido);
-			c.getPedidos().add(pedido);
-			this.clienteRepository.save(c);
-		}
-		redirect.addFlashAttribute("globalMessage","Pedido gravado com sucesso");
-		return new ModelAndView("redirect:/" + ITEM_URI + "{pedido.id}","pedido.id",pedido.getId());
-	}
+    }
 
-	@GetMapping(value = "remover/{id}")
-	public ModelAndView remover(@PathVariable("id") Long id,RedirectAttributes redirect) {
+    @PostMapping(params = "form")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ModelAndView create(@Valid PedidoDTO pedidoDTO, BindingResult result, RedirectAttributes redirect) {
 
-		Optional<Pedido> pedidoParaRemoverOpt = pedidoRepository.findById(id);
-		Pedido pedidoParaRemover = pedidoParaRemoverOpt.orElseThrow(() -> new RuntimeException("Não veio nada"));
+        Pedido pedido = modelMapper.map(pedidoDTO, Pedido.class);
 
-		Optional<Cliente> clienteOpt = clienteRepository.findById(pedidoParaRemover.getCliente().getId());
-		Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException("Não veio nada"));
-		
-		c.getPedidos().remove(pedidoParaRemover);
 
-		this.clienteRepository.save(c);
-		this.pedidoRepository.deleteById(id);
+        if (result.hasErrors()) {
+            return new ModelAndView(ITEM_URI + "form", "formErrors", result.getAllErrors());
+        }
 
-		Iterable<Pedido> pedidos = this.pedidoRepository.findAll();
+        if (pedido.getId() != null) {
 
-		ModelAndView mv = new ModelAndView(ITEM_URI + "list","pedidos",pedidos);
-		mv.addObject("globalMessage","Pedido removido com sucesso");
+            Optional<Pedido> pedidoParaAlterarOpt = pedidoRepository.findById(pedido.getId());
+            Pedido pedidoParaAlterar = pedidoParaAlterarOpt.orElseThrow(() -> new RuntimeException(POSSIVEL_PEDIDO_NULO));
 
-		return mv;
-	}
+            Optional<Cliente> clienteOpt = clienteRepository.findById(pedidoParaAlterar.getCliente().getId());
+            Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException("Possivel cliente nulo"));
+            pedidoParaAlterar.setItens(pedido.getItens());
+            double valorTotal = pedido.getItens()
+                    .stream().
+                    mapToDouble(Item::getPreco)
+                    .sum();
 
-	@GetMapping(value = "alterar/{id}")
-	public ModelAndView alterarForm(@PathVariable("id") Pedido pedido) {
+            pedidoParaAlterar.setData(pedido.getData());
+            pedidoParaAlterar.setValorTotal(valorTotal);
+            c.getPedidos().remove(pedidoParaAlterar);
+            c.getPedidos().add(pedidoParaAlterar);
+            log.info(">>>Create new order: {}", c);
+            this.clienteRepository.save(c);
+        } else {
 
-		Map<String,Object> model = new HashMap<>();
-		model.put("todosItens",itemRepository.findAll());
-		model.put("todosClientes",clienteRepository.findAll());
-		model.put("pedido",pedido);
+            Optional<Cliente> clienteOpt = clienteRepository.findById(pedido.getCliente().getId());
+            Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException("Possivel cliente nulo"));
+            double valorTotal = pedido.getItens()
+                    .stream().
+                    mapToDouble(Item::getPreco)
+                    .sum();
+            pedido.setValorTotal(valorTotal);
+            pedido = this.pedidoRepository.save(pedido);
+            c.getPedidos().add(pedido);
+            log.info(">>>Update order: {}", c);
+            this.clienteRepository.save(c);
+            // atualiza estoque
+            log.info(">>>Updating stock: {}", pedido);
+            atualizaEstoque.processar(pedido);
+        }
+        redirect.addFlashAttribute("globalMessage", "Pedido gravado com sucesso");
+        return new ModelAndView("redirect:/" + ITEM_URI + "{pedido.id}", "pedido.id", pedido.getId());
+    }
 
-		return new ModelAndView(ITEM_URI + "form",model);
-	}
+    @GetMapping(value = "remover/{id}")
+    public ModelAndView remover(@PathVariable("id") Long id, RedirectAttributes redirect) {
+
+        Optional<Pedido> pedidoParaRemoverOpt = pedidoRepository.findById(id);
+        Pedido pedidoParaRemover = pedidoParaRemoverOpt.orElseThrow(() -> new RuntimeException(POSSIVEL_PEDIDO_NULO));
+
+        Optional<Cliente> clienteOpt = clienteRepository.findById(pedidoParaRemover.getCliente().getId());
+        Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException(POSSIVEL_PEDIDO_NULO));
+
+        this.clienteRepository.save(c);
+        this.pedidoRepository.deleteById(id);
+
+        Iterable<Pedido> pedidos = this.pedidoRepository.findAll();
+
+        ModelAndView mv = new ModelAndView(ITEM_URI + "list", "pedidos", pedidos);
+        mv.addObject("globalMessage", "Pedido removido com sucesso");
+
+        return mv;
+    }
+
+    @GetMapping(value = "alterar/{id}")
+    public ModelAndView alterarForm(@PathVariable("id") Pedido pedido) {
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("todosItens", itemRepository.findAll());
+        model.put("todosClientes", clienteRepository.findAll());
+        model.put("pedido", pedido);
+
+        return new ModelAndView(ITEM_URI + "form", model);
+    }
 
 }

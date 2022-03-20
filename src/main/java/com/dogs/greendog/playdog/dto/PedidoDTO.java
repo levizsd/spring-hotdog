@@ -1,22 +1,19 @@
-package com.dogs.greendog.playdog.domain;
+package com.dogs.greendog.playdog.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.dogs.greendog.playdog.domain.Cliente;
+import com.dogs.greendog.playdog.domain.Item;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@JsonInclude(Include.NON_NULL)
-public class Pedido {
+public class PedidoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = true)
@@ -34,10 +31,10 @@ public class Pedido {
 
     private String status;
 
-    public Pedido() {
+    public PedidoDTO() {
     }
 
-    public Pedido(Long id, Cliente cliente, List<Item> itens, Double valorTotal, String status) {
+    public PedidoDTO(Long id, Cliente cliente, List<Item> itens, Double valorTotal, String status) {
         super();
         this.id = id;
         this.cliente = cliente;
@@ -46,6 +43,7 @@ public class Pedido {
         this.valorTotal = valorTotal;
         this.status = status;
     }
+
 
     public Long getId() {
         return id;
@@ -111,7 +109,7 @@ public class Pedido {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Pedido other = (Pedido) obj;
+        PedidoDTO other = (PedidoDTO) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

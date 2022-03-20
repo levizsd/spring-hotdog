@@ -1,7 +1,6 @@
 package com.dogs.greendog.playdog.carga;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.dogs.greendog.playdog.api.FluxoPedido;
 import com.dogs.greendog.playdog.domain.Cliente;
 import com.dogs.greendog.playdog.domain.Item;
 import com.dogs.greendog.playdog.domain.Pedido;
@@ -12,10 +11,13 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Component
 public class RepositoryTest 
-implements ApplicationRunner 
+ implements ApplicationRunner 
 {
 
 	private static final long ID_CLIENTE_FERNANDO = 11L;
@@ -36,7 +38,7 @@ implements ApplicationRunner
     public void run(ApplicationArguments applicationArguments) throws Exception {
 
     	log.info(">>> Iniciando carga de dados...");
-    	Cliente fernando = new Cliente(ID_CLIENTE_FERNANDO,"Fernando Boaglio","Sampa");
+    	Cliente fernando = new Cliente(ID_CLIENTE_FERNANDO,"ELvis Madeira","Sampa");
     	Cliente zePequeno = new Cliente(ID_CLIENTE_ZE_PEQUENO,"Zé Pequeno","Cidade de Deus");    	
     	
     	Item dog1 = new Item(ID_ITEM1,"Green Dog tradicional",25d);
@@ -50,10 +52,10 @@ implements ApplicationRunner
     	listaPedidoZePequeno1.add(dog2);
     	listaPedidoZePequeno1.add(dog3);
     	
-    	Pedido pedidoDoFernando = new Pedido(ID_PEDIDO1,fernando,listaPedidoFernando1,dog1.getPreco());
+    	Pedido pedidoDoFernando = new Pedido(ID_PEDIDO1,fernando,listaPedidoFernando1,dog1.getPreco(), FluxoPedido.CHEGOU_NA_COZINHA.name() );
     	fernando.novoPedido(pedidoDoFernando);
     	
-    	Pedido pedidoDoZepequeno = new Pedido(ID_PEDIDO2,zePequeno,listaPedidoZePequeno1, dog2.getPreco()+dog3.getPreco());
+    	Pedido pedidoDoZepequeno = new Pedido(ID_PEDIDO2,zePequeno,listaPedidoZePequeno1, dog2.getPreco()+dog3.getPreco(),FluxoPedido.CHEGOU_NA_COZINHA.name());
     	zePequeno.novoPedido(pedidoDoZepequeno);
 
 		log.info(">>> Pedido 1 - Fernando : "+ pedidoDoFernando);
@@ -65,7 +67,7 @@ implements ApplicationRunner
 
 		List<Item> listaPedidoFernando2 = new ArrayList<>();
 		listaPedidoFernando2.add(dog2);
-    	Pedido pedido2DoFernando  = new Pedido(ID_PEDIDO3,fernando,listaPedidoFernando2,dog2.getPreco());
+    	Pedido pedido2DoFernando  = new Pedido(ID_PEDIDO3,fernando,listaPedidoFernando2,dog2.getPreco(),FluxoPedido.CHEGOU_NA_COZINHA.name());
     	fernando.novoPedido(pedido2DoFernando);
     	clienteRepository.saveAndFlush(fernando);
 		log.info(">>> Pedido 2 - Fernando : "+ pedido2DoFernando);

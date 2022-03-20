@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class ClienteController {
 
 	private final ClienteRepository clienteRepository;
-	private static final String CLIENTE_URI = "clientes/";
+	private  static final String CLIENTE_URI = "clientes/";
 
 	public ClienteController(ClienteRepository clienteRepository) {
 		this.clienteRepository = clienteRepository;
@@ -40,7 +40,10 @@ public class ClienteController {
 
 	@PostMapping(params = "form")
 	public ModelAndView create(@Valid Cliente cliente,BindingResult result,RedirectAttributes redirect) {
-		if (result.hasErrors()) { return new ModelAndView(CLIENTE_URI + "form","formErrors",result.getAllErrors()); }
+
+		if (result.hasErrors()) {
+			return new ModelAndView(CLIENTE_URI + "form","formErrors",result.getAllErrors());
+		}
 		cliente = this.clienteRepository.save(cliente);
 		redirect.addFlashAttribute("globalMessage","Cliente gravado com sucesso");
 		return new ModelAndView("redirect:/" + CLIENTE_URI + "{cliente.id}","cliente.id",cliente.getId());

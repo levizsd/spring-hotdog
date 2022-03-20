@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
  <title>Green Dog Delivery</title>
  <!-- Bootstrap -->
@@ -18,9 +18,11 @@
  <div class="container">
  <nav class="navbar navbar-default navbar-static-top">
    <div class="navbar-header">
-      <a class="navbar-brand" th:href="@{/}"><img src="../static/img/hotdog-logo.png" th:src="@{/img/hotdog-logo.png}"/></a>
+      <a class="navbar-brand" th:href="@{/}"><img th:src="@{/img/hotdog-logo.png}"/></a>
     </div>
 	<ul class="nav navbar-nav">
+	  <li><a class="brand" href="https://www.casadocodigo.com.br" target="_BLANK" >Casa do Código</a></li>
+	  <li><a class="brand" href="https://www.boaglio.com" target="_BLANK">boaglio.com</a></li>
 	  <li><a class="brand" href="https://projects.spring.io/spring-boot/" target="_BLANK">Spring Boot</a></li>
 	  <li><a class="brand" href="https://github.com/ultraq/thymeleaf-layout-dialect" target="_BLANK">Thymeleaf Layout</a></li>
 	</ul>

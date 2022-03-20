@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="pt" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layout">
 <head>
  <title>Pedido</title>
@@ -19,7 +18,7 @@
 	<div layout:fragment="content" class="input-form">
 		
 		<div class="well">
-		 <form id="pedidoForm" th:action="@{/pedidos/(form)}" th:object="${pedido}" action="#" method="post"  class="form-horizontal">
+		 <form id="pedidoForm" th:action="@{/pedidos/(form)}" th:object="${pedidoDTO}" action="#" method="post"  class="form-horizontal">
 			<div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
 				<p th:each="error : ${#fields.errors('*')}" th:text="${error}">Erro de validação</p>
 			</div>

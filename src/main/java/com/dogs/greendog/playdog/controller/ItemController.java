@@ -40,7 +40,10 @@ public class ItemController {
 
 	@PostMapping(params = "form")
 	public ModelAndView create(@Valid Item item,BindingResult result,RedirectAttributes redirect) {
-		if (result.hasErrors()) { return new ModelAndView(ITEM_URI + "form","formErrors",result.getAllErrors()); }
+
+		if (result.hasErrors()) {
+			return new ModelAndView(ITEM_URI + "form","formErrors",result.getAllErrors());
+		}
 		item = this.itemRepository.save(item);
 		redirect.addFlashAttribute("globalMessage","Item gravado com sucesso");
 		return new ModelAndView("redirect:/" + ITEM_URI + "{item.id}","item.id",item.getId());

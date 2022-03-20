@@ -2,17 +2,24 @@
 package com.dogs.greendog.playdog.controller;
 
 import com.dogs.greendog.playdog.dto.MensagemDTO;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Properties;
- 
+
+//@RefreshScope
 @Controller
+@RequestMapping("/")
 public class IndexController {
- 
+
+	@Autowired
+	private Environment environment;
+
 	@GetMapping("/")
 	public String index() {
 		return "index";
@@ -23,7 +30,7 @@ public class IndexController {
 		return "ambiente";
 	}
 
-	@GetMapping("/properties")
+	@GetMapping("properties")
 	@ResponseBody
 	Properties properties() {
 		return System.getProperties();
@@ -34,10 +41,22 @@ public class IndexController {
 		return "delivery/index";
 	}
 
-    @Value("${mensagem:nenhuma}")
+	@GetMapping("/profile")
+	@ResponseBody
+	public String[] profile() {
+		return this.environment.getActiveProfiles();
+	}
+
+	@GetMapping("/server")
+	@ResponseBody
+	public String server(HttpServletRequest request) {
+		return request.getServerName() + ":" + request.getServerPort();
+	}
+
+//    @Value("${mensagem}")
     private String message;
 
-    @Value("${debug:0}")
+//    @Value("${debug}")
     private String debug;
 
     @GetMapping("/oferta")
@@ -45,4 +64,6 @@ public class IndexController {
     public MensagemDTO getMessage(HttpServletRequest request) {
         return new MensagemDTO(this.message,request.getServerName() + ":" + request.getServerPort(),this.debug);
     }
+ 
+    
 }
