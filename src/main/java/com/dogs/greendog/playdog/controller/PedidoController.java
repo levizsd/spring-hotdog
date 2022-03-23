@@ -88,9 +88,10 @@ public class PedidoController {
             Optional<Cliente> clienteOpt = clienteRepository.findById(pedidoParaAlterar.getCliente().getId());
             Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException("Possivel cliente nulo"));
             pedidoParaAlterar.setItens(pedido.getItens());
+
             double valorTotal = pedido.getItens()
-                    .stream().
-                    mapToDouble(Item::getPreco)
+                    .stream()
+                    .mapToDouble(Item::getPreco)
                     .sum();
 
             pedidoParaAlterar.setData(pedido.getData());
@@ -104,8 +105,8 @@ public class PedidoController {
             Optional<Cliente> clienteOpt = clienteRepository.findById(pedido.getCliente().getId());
             Cliente c = clienteOpt.orElseThrow(() -> new RuntimeException("Possivel cliente nulo"));
             double valorTotal = pedido.getItens()
-                    .stream().
-                    mapToDouble(Item::getPreco)
+                    .stream()
+                    .mapToDouble(Item::getPreco)
                     .sum();
             pedido.setValorTotal(valorTotal);
             pedido = this.pedidoRepository.save(pedido);

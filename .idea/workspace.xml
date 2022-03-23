@@ -4,64 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32341f8b-97dd-4582-b5b0-bcef3334a719" name="Changes" comment="adding improvements">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/api/FluxoPedido.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/api/NovoPedido.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/api/PedidoAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/api/PedidoNotFound.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/api/PedidoNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/api/StatusPedido.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/config/DevNotificacaoConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/config/ProdNotificacaoConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/Estoque.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/dto/Notificacao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/dto/PedidoDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/rest/AtualizaEstoqueService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/service/AtualizaEstoque.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/util/EnviaNotificacao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/dogs/greendog/playdog/GreenDogDeliveryApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/dogs/greendog/playdog/api/TestComRestTemplate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/dogs/greendog/playdog/service/ClienteRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_03_2022_21_48_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_03_2022_21_48__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_03_2022_00_51_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_03_2022_00_51_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_03_2022_00_51__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="92b3b7ae-81d9-4e42-80ba-b2f0bac240d2" name="Changes" comment="adding improvements">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/SpringbootGreendogdeliveryApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/GreendogdeliveryApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/carga/RepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/carga/RepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/config/SpringDataRestCustomization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/config/SpringDataRestCustomization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/ClienteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/ItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/PedidoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/PedidoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/CEP.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/domain/Pedido.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/rest/NovoPedidoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/rest/NovoPedidoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/service/ValidaCEPEntrega.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/public/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/error/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/public/error/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/error/500.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ambiente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ambiente.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/clientes/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/clientes/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/delivery/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/delivery/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/itens/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/itens/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/pedidos/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/pedidos/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/boaglio/casadocodigo/SpringbootGreendogdeliveryApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/boaglio/casadocodigo/greendogdelivery/service/ValidaCEPEntregaTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +57,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/dto" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Java8" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -145,7 +91,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="32341f8b-97dd-4582-b5b0-bcef3334a719" name="Changes" comment="" />
+      <changelist id="92b3b7ae-81d9-4e42-80ba-b2f0bac240d2" name="Changes" comment="adding improvements" />
       <created>1647485728181</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -177,16 +123,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adding improvements" />
     <option name="LAST_COMMIT_MESSAGE" value="adding improvements" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/dogs/greendog/playdog/controller/PedidoController.java</url>
-          <line>119</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
